@@ -155,7 +155,7 @@ class AuthSignInComponent {
             // Set the alert
             this.alert = {
                 type: 'error',
-                message: this._authService.getErrors(errorMessaage)
+                message: response.error.message
             };
             // Show the alert
             this.showAlert = true;
