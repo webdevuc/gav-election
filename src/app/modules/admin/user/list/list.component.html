@@ -1,0 +1,71 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <div class="flex-auto p-6 sm:p-10">
+
+        <div class="grid grid-cols-4 gap-4 content-between mb-3">
+            <div *ngIf="dataSource?.data.length > 0">
+                <input (keyup)="applyFilter($event.target.value)" placeholder="नावाने शोधा" class="mt-1 block w-full px-3 py-2  border border-slate-300 rounded-md shadow-sm placeholder-slate-400
+                    focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 h-14" autocomplete="off">
+            </div>
+        </div>
+
+
+
+
+        <div class="card">
+            <div class="table-wrapper w-full">
+                <mat-table [dataSource]="dataSource" matSort class="w-full" >
+
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef > अ.क्र. </mat-header-cell>
+                        <mat-cell *matCellDef="let user; let i=index" class="text-ceter w-2/12" data-label="ID">
+                            {{this.paginator.pageIndex == 0 ? i + 1 : 1 + i +
+                            this.paginator.pageIndex *
+                            this.paginator.pageSize}}</mat-cell>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef> संपूर्ण नाव </mat-header-cell>
+                        <mat-cell *matCellDef="let user" class=" fw-500" data-label="Name">
+                            {{user.name}}
+                        </mat-cell>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="actions">
+                        <mat-header-cell *matHeaderCellDef class="flex justify-center" data-label='Actions'>क्रिया
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let user; let i = index" class="flex justify-center" data-label='Actions'>
+                            <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="अधिक पाहण्यासाठी क्लिक करा"
+                                aria-label="अधिक पाहण्यासाठी क्लिक करा">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="openDetails(user.id, 'view')">
+                                    <mat-icon>visibility</mat-icon>
+                                    <span>तपशील पहा</span>
+                                </button>
+                                <button mat-menu-item (click)="openDetails(user.id, 'edit')">
+                                    <mat-icon>autorenew</mat-icon>
+                                    <span>तपशील संपादित करा</span>
+                                </button>
+                                <button mat-menu-item (click)="deleteRecord(user.id, i)">
+                                    <mat-icon>delete</mat-icon>
+                                    <span>सूचीमधून काढा</span>
+                                </button>
+                            </mat-menu>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let voter; columns: displayedColumns;">
+                    </mat-row>
+                </mat-table>
+                <p *ngIf="dataSource?.data.length === 0" class="py-5 mb-0 text-center">माहिती उपलब्ध नाही</p>
+            </div>
+            <mat-paginator [pageSizeOptions]="pageSizeOptions" showFirstLastButtons></mat-paginator>
+
+        </div>
+    </div>
+</div>
