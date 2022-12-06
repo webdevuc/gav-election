@@ -102,7 +102,7 @@ export class AuthSignInComponent implements OnInit {
                     // Set the alert
                     this.alert = {
                         type: 'error',
-                        message: this._authService.getErrors(errorMessaage)
+                        message: response.error.message
                     };
 
                     // Show the alert
