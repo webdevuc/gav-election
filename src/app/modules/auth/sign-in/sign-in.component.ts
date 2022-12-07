@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
-import { DeviceDetectorService } from 'ngx-device-detector';
+import { DeviceUUID } from "device-uuid";
+
 
 @Component({
     selector: 'auth-sign-in',
@@ -14,6 +15,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 })
 export class AuthSignInComponent implements OnInit {
     @ViewChild('signInNgForm') signInNgForm: NgForm;
+    uuid = new DeviceUUID().get();
 
     alert: { type: FuseAlertType; message: string } = {
         type: 'success',
@@ -31,9 +33,7 @@ export class AuthSignInComponent implements OnInit {
         private _authService: AuthService,
         private _formBuilder: UntypedFormBuilder,
         private _router: Router,
-        private _deviceService: DeviceDetectorService
     ) {
-        this.epicFunction()
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -48,18 +48,13 @@ export class AuthSignInComponent implements OnInit {
         this.signInForm = this._formBuilder.group({
             mobileNo: ['', [Validators.required, Validators.minLength, Validators.maxLength]],
             password: ['', Validators.required],
-            deviceId: ['123']
+            deviceId: [this.uuid]
         });
     }
 
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
-
-    epicFunction() {
-        // console.log(this._deviceService.getDeviceInfo());
-    }
-
 
     /**
      * Sign in
