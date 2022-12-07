@@ -127,7 +127,6 @@
                           "src/favicon-16x16.png",
                           "src/favicon-32x32.png",
                           "src/assets",
-                          "src/manifest.webmanifest",
                           "src/manifest.webmanifest"
                         ],
                         "styles": [
