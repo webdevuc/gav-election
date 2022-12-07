@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1670341664373,
+  "timestamp": 1670417649543,
   "index": "https://webdevuc.github.io/gav-election/index.html",
   "assetGroups": [
     {
@@ -11,7 +11,7 @@
         "ignoreVary": true
       },
       "urls": [
-        "https://webdevuc.github.io/gav-election/default-src_app_shared_services_swal_service_ts.js",
+        "https://webdevuc.github.io/gav-election/common.js",
         "https://webdevuc.github.io/gav-election/default-src_fuse_components_alert_index_ts.js",
         "https://webdevuc.github.io/gav-election/default-src_fuse_components_card_index_ts.js",
         "https://webdevuc.github.io/gav-election/index.html",
@@ -163,14 +163,14 @@
     "https://webdevuc.github.io/gav-election/assets/icons/feather.svg": "63b29bc00de44cda0e447b1460655a562ff57e75",
     "https://webdevuc.github.io/gav-election/assets/icons/heroicons-outline.svg": "1d59cfb253680cd3cb4c866ab1bffba861a7522c",
     "https://webdevuc.github.io/gav-election/assets/icons/heroicons-solid.svg": "e2ea39c0147e00efe61c6766cb7ac97f3fab875e",
-    "https://webdevuc.github.io/gav-election/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
-    "https://webdevuc.github.io/gav-election/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
-    "https://webdevuc.github.io/gav-election/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
-    "https://webdevuc.github.io/gav-election/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
-    "https://webdevuc.github.io/gav-election/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
-    "https://webdevuc.github.io/gav-election/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
-    "https://webdevuc.github.io/gav-election/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
-    "https://webdevuc.github.io/gav-election/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "https://webdevuc.github.io/gav-election/assets/icons/icon-128x128.png": "144146acac8586272643be800967f1cdef745744",
+    "https://webdevuc.github.io/gav-election/assets/icons/icon-144x144.png": "f4d79e8ba3697f6cd9a0da12805ec617cdaa02c2",
+    "https://webdevuc.github.io/gav-election/assets/icons/icon-152x152.png": "973773d23e60004eda3d003c1445cf425c6c4919",
+    "https://webdevuc.github.io/gav-election/assets/icons/icon-192x192.png": "7a2b6f0eece9746fc665774ec751dc94ec23a022",
+    "https://webdevuc.github.io/gav-election/assets/icons/icon-384x384.png": "071b6167353858afce29ff4378176f25ebb89650",
+    "https://webdevuc.github.io/gav-election/assets/icons/icon-512x512.png": "08bf7528db8daac6e201109e6c2dc8c15b63c1c8",
+    "https://webdevuc.github.io/gav-election/assets/icons/icon-72x72.png": "623e99a6574f8f1981469edce8a84a24fe702f9a",
+    "https://webdevuc.github.io/gav-election/assets/icons/icon-96x96.png": "e80a92047cbad51ed6163025c0754b908756f933",
     "https://webdevuc.github.io/gav-election/assets/icons/material-outline.svg": "56044c5aa643e86dd428fec35bfd453bc3fb0b73",
     "https://webdevuc.github.io/gav-election/assets/icons/material-solid.svg": "7d1dd8505153361776ac7c12538197a7ac3b959d",
     "https://webdevuc.github.io/gav-election/assets/icons/material-twotone.svg": "6d2747f9ee75f9bd894c89413b91b94bd6f04fd0",
@@ -260,13 +260,13 @@
     "https://webdevuc.github.io/gav-election/assets/images/ui/angular-material/scenes/tooltip.scene.png": "6e3eecded92a848c9db3db5453a9eb9fe0abc1b1",
     "https://webdevuc.github.io/gav-election/assets/images/ui/angular-material/scenes/tree.scene.png": "56b50c4e5dd9862f908a098c31b39452ba7eb601",
     "https://webdevuc.github.io/gav-election/assets/styles/splash-screen.css": "0f1e3c3163599ae4068ddd126c08a42e40d8f7ad",
-    "https://webdevuc.github.io/gav-election/default-src_app_shared_services_swal_service_ts.js": "2d28ddb8847eee8895983a614c6de78ba3b623f3",
+    "https://webdevuc.github.io/gav-election/common.js": "4c96b7b8adc5641d2915de2ff1b455d4b0d5055a",
     "https://webdevuc.github.io/gav-election/default-src_fuse_components_alert_index_ts.js": "6b9b7c560dd73ae337269dba68a4b13f65af0d31",
     "https://webdevuc.github.io/gav-election/default-src_fuse_components_card_index_ts.js": "ccb569c593c4b75b7457907319af67c790a54e59",
     "https://webdevuc.github.io/gav-election/favicon-16x16.png": "cf11df421dc38b998e365be83c73cb783b40a63b",
     "https://webdevuc.github.io/gav-election/favicon-32x32.png": "25da43c562642b19fabf6fad9db746d82df65169",
-    "https://webdevuc.github.io/gav-election/index.html": "6b4e166835706f327a01db276517f1b8fbd6a124",
-    "https://webdevuc.github.io/gav-election/main.js": "77bd2f155487b05ec6886cb8038e9e6d0eeda022",
+    "https://webdevuc.github.io/gav-election/index.html": "a3ad3c5420e2ad90211f8a53a1ecc7ae39d6ca45",
+    "https://webdevuc.github.io/gav-election/main.js": "c44ea791c5f8e22d5cda8709dc5b43cb5d1bfedd",
     "https://webdevuc.github.io/gav-election/manifest.webmanifest": "76c58ed51eb7df3c721fa188f952d48183a0276a",
     "https://webdevuc.github.io/gav-election/polyfills.js": "11caedc13c5f43c570b14e33c30a5fe89b01ea93",
     "https://webdevuc.github.io/gav-election/runtime.js": "f9592de02157ad9e2d8e9d1bd3d412f77217d909",
@@ -275,13 +275,13 @@
     "https://webdevuc.github.io/gav-election/src_app_modules_auth_confirmation-required_confirmation-required_module_ts.js": "eb35de800802eb30f6bef7048f2503f376176fd8",
     "https://webdevuc.github.io/gav-election/src_app_modules_auth_forgot-password_forgot-password_module_ts.js": "d297b3ffd3049e0c4411fab4af3f70fc97068099",
     "https://webdevuc.github.io/gav-election/src_app_modules_auth_reset-password_reset-password_module_ts.js": "0a04158a002002f9ac87f8498e35106a391b1c7a",
-    "https://webdevuc.github.io/gav-election/src_app_modules_auth_sign-in_sign-in_module_ts.js": "b21ecce13b93bca30511b3ad1bc759a3e4528f86",
+    "https://webdevuc.github.io/gav-election/src_app_modules_auth_sign-in_sign-in_module_ts.js": "973f25706ce59573c63dcf9bed6fca0788fb8013",
     "https://webdevuc.github.io/gav-election/src_app_modules_auth_sign-out_sign-out_module_ts.js": "cfcb9a5252e393ca3c90361f61511903e0b89aad",
     "https://webdevuc.github.io/gav-election/src_app_modules_auth_sign-up_sign-up_module_ts.js": "16b497f04a0b4ead788cd9898639ea3afa158312",
     "https://webdevuc.github.io/gav-election/src_app_modules_auth_unlock-session_unlock-session_module_ts.js": "b786baf95aa67efe92b6a4d060c9ae96c9ccb3c8",
     "https://webdevuc.github.io/gav-election/src_app_modules_landing_home_home_module_ts.js": "5d187b93da614002159aad41d96d3aa44113a110",
     "https://webdevuc.github.io/gav-election/styles.css": "df6b1b60ca1273844f643128a0f73698a76b13de",
-    "https://webdevuc.github.io/gav-election/vendor.js": "6f3ac7be2a920293ccf9f733b5bf604b640741f8"
+    "https://webdevuc.github.io/gav-election/vendor.js": "3c152a7e3ea7bbfafaebbd9acd4cf6c13a576113"
   },
   "navigationUrls": [
     {

@@ -7273,21 +7273,128 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AppComponent": () => (/* binding */ AppComponent)
 /* harmony export */ });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 22560);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ 60124);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ 60598);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ 60116);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ 50635);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 22560);
+/* harmony import */ var _angular_service_worker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/service-worker */ 63769);
+/* harmony import */ var _angular_cdk_platform__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/cdk/platform */ 89107);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ 60124);
+
+
+
+
 
 
 class AppComponent {
     /**
      * Constructor
      */
-    constructor() {
+    constructor(swUpdate, platform) {
+        this.swUpdate = swUpdate;
+        this.platform = platform;
+        this.modalVersion = false;
+    }
+    ngOnInit() {
+        if (this.swUpdate.isEnabled) {
+            this.swUpdate.versionUpdates.pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_1__.filter)((evt) => evt.type === 'VERSION_READY'), (0,rxjs__WEBPACK_IMPORTED_MODULE_2__.map)((evt) => {
+                console.info(`currentVersion=[${evt.currentVersion} | latestVersion=[${evt.latestVersion}]`);
+                this.modalVersion = true;
+            }));
+        }
+        this.loadModalPwa();
+    }
+    loadModalPwa() {
+        if (this.platform.ANDROID) {
+            window.addEventListener('beforeinstallprompt', (event) => {
+                event.preventDefault();
+                this.modalPwaEvent = event;
+                this.modalPwaPlatform = 'ANDROID';
+                this.promptMessage();
+            });
+        }
+        if (this.platform.isBrowser) {
+            window.addEventListener('beforeinstallprompt', (event) => {
+                event.preventDefault();
+                this.modalPwaEvent = event;
+                this.modalPwaPlatform = 'BROWSER';
+                this.promptMessage();
+            });
+        }
+        if (this.platform.IOS && this.platform.SAFARI) {
+            const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator['standalone']);
+            if (!isInStandaloneMode) {
+                this.modalPwaPlatform = 'IOS';
+                this.promptMessageIOS();
+            }
+        }
+    }
+    addToHomeScreen() {
+        this.modalPwaEvent.prompt();
+        this.modalPwaPlatform = undefined;
+    }
+    closePwa() {
+        this.modalPwaPlatform = undefined;
+    }
+    closeVersion() {
+        this.modalVersion = false;
+    }
+    updateVersion() {
+        this.modalVersion = false;
+        window.location.reload();
+    }
+    promptMessage() {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+            title: 'हे WEB APP होम स्क्रीनवर जोडा',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: 'जोडा',
+            denyButtonText: `गरज नाही`,
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                this.addToHomeScreen();
+            }
+            else if (result.isDenied) {
+                sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire('धन्यवाद', '', 'success');
+            }
+        });
+    }
+    promptMessageIOS() {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+            title: 'Install this WEB app on your device',
+            html: 'To install this WEB app on your device, tap the "Menu" button' +
+                '<img src="https://res.cloudinary.com/rodrigokamada/image/upload/v1641089482/Blog/angular-pwa/safari_action_button_38x50.png"' +
+                'class= "ios-menu m-0" />' +
+                'and then "Add to home screen" button' +
+                '< i class= "bi bi-plus-square" > </>',
+            showDenyButton: false,
+            showCancelButton: true,
+        });
+    }
+    promptMessageUpdate() {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+            title: 'या अॅपची नवीन आवृत्ती उपलब्ध आहे.',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: 'अपडेट करा',
+            denyButtonText: `अपडेट करू नका`,
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                this.updateVersion();
+            }
+            else if (result.isDenied) {
+                this.closeVersion();
+            }
+        });
     }
 }
-AppComponent.ɵfac = function AppComponent_Factory(t) { return new (t || AppComponent)(); };
-AppComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: AppComponent, selectors: [["app-root"]], decls: 1, vars: 0, template: function AppComponent_Template(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "router-outlet");
-    } }, dependencies: [_angular_router__WEBPACK_IMPORTED_MODULE_1__.RouterOutlet], styles: ["[_nghost-%COMP%] {\n  display: flex;\n  flex: 1 1 auto;\n  width: 100%;\n  height: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGFBQUE7RUFDQSxjQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7QUFDSiIsImZpbGUiOiJhcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4OiAxIDEgYXV0bztcbiAgICB3aWR0aDogMTAwJTtcbiAgICBoZWlnaHQ6IDEwMCU7XG59XG4iXX0= */"] });
+AppComponent.ɵfac = function AppComponent_Factory(t) { return new (t || AppComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_service_worker__WEBPACK_IMPORTED_MODULE_4__.SwUpdate), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_cdk_platform__WEBPACK_IMPORTED_MODULE_5__.Platform)); };
+AppComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({ type: AppComponent, selectors: [["app-root"]], decls: 1, vars: 0, template: function AppComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](0, "router-outlet");
+    } }, dependencies: [_angular_router__WEBPACK_IMPORTED_MODULE_6__.RouterOutlet], styles: ["[_nghost-%COMP%] {\n  display: flex;\n  flex: 1 1 auto;\n  width: 100%;\n  height: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGFBQUE7RUFDQSxjQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7QUFDSiIsImZpbGUiOiJhcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4OiAxIDEgYXV0bztcbiAgICB3aWR0aDogMTAwJTtcbiAgICBoZWlnaHQ6IDEwMCU7XG59XG4iXX0= */"] });
 
 
 /***/ }),
@@ -7303,23 +7410,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AppModule": () => (/* binding */ AppModule)
 /* harmony export */ });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/core */ 22560);
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/platform-browser */ 34497);
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/platform-browser/animations */ 37146);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/router */ 60124);
-/* harmony import */ var ngx_markdown__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ngx-markdown */ 50982);
-/* harmony import */ var _fuse__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @fuse */ 11146);
-/* harmony import */ var _fuse_services_config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fuse/services/config */ 26948);
-/* harmony import */ var _fuse_lib_mock_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fuse/lib/mock-api */ 11767);
-/* harmony import */ var app_core_core_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/core/core.module */ 40294);
-/* harmony import */ var app_core_config_app_config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/core/config/app.config */ 96685);
-/* harmony import */ var app_mock_api__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/mock-api */ 88889);
-/* harmony import */ var app_layout_layout_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/layout/layout.module */ 4805);
-/* harmony import */ var app_app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! app/app.component */ 55041);
-/* harmony import */ var app_app_routing__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! app/app.routing */ 76738);
-/* harmony import */ var _angular_service_worker__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/service-worker */ 63769);
-/* harmony import */ var _fuse_services_config_config_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../@fuse/services/config/config.module */ 24775);
-/* harmony import */ var _fuse_lib_mock_api_mock_api_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../@fuse/lib/mock-api/mock-api.module */ 3602);
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../environments/environment */ 92340);
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/platform-browser */ 34497);
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/platform-browser/animations */ 37146);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/router */ 60124);
+/* harmony import */ var ngx_markdown__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ngx-markdown */ 50982);
+/* harmony import */ var _fuse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fuse */ 11146);
+/* harmony import */ var _fuse_services_config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fuse/services/config */ 26948);
+/* harmony import */ var _fuse_lib_mock_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fuse/lib/mock-api */ 11767);
+/* harmony import */ var app_core_core_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/core/core.module */ 40294);
+/* harmony import */ var app_core_config_app_config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/core/config/app.config */ 96685);
+/* harmony import */ var app_mock_api__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/mock-api */ 88889);
+/* harmony import */ var app_layout_layout_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! app/layout/layout.module */ 4805);
+/* harmony import */ var app_app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! app/app.component */ 55041);
+/* harmony import */ var app_app_routing__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! app/app.routing */ 76738);
+/* harmony import */ var _angular_service_worker__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/service-worker */ 63769);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/core */ 22560);
+/* harmony import */ var _fuse_services_config_config_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../@fuse/services/config/config.module */ 24775);
+/* harmony import */ var _fuse_lib_mock_api_mock_api_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../@fuse/lib/mock-api/mock-api.module */ 3602);
 
 
 
@@ -7342,40 +7450,40 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const routerConfig = {
-    preloadingStrategy: _angular_router__WEBPACK_IMPORTED_MODULE_11__.PreloadAllModules,
+    preloadingStrategy: _angular_router__WEBPACK_IMPORTED_MODULE_12__.PreloadAllModules,
     scrollPositionRestoration: 'enabled'
 };
 class AppModule {
 }
 AppModule.ɵfac = function AppModule_Factory(t) { return new (t || AppModule)(); };
-AppModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [app_app_component__WEBPACK_IMPORTED_MODULE_7__.AppComponent] });
-AppModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵdefineInjector"]({ imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_13__.BrowserModule,
-        _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_14__.BrowserAnimationsModule,
-        _angular_router__WEBPACK_IMPORTED_MODULE_11__.RouterModule.forRoot(app_app_routing__WEBPACK_IMPORTED_MODULE_8__.appRoutes, routerConfig),
+AppModule.ɵmod = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [app_app_component__WEBPACK_IMPORTED_MODULE_8__.AppComponent] });
+AppModule.ɵinj = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵdefineInjector"]({ imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_14__.BrowserModule,
+        _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_15__.BrowserAnimationsModule,
+        _angular_router__WEBPACK_IMPORTED_MODULE_12__.RouterModule.forRoot(app_app_routing__WEBPACK_IMPORTED_MODULE_9__.appRoutes, routerConfig),
         // Fuse, FuseConfig & FuseMockAPI
-        _fuse__WEBPACK_IMPORTED_MODULE_0__.FuseModule,
-        _fuse_services_config__WEBPACK_IMPORTED_MODULE_1__.FuseConfigModule.forRoot(app_core_config_app_config__WEBPACK_IMPORTED_MODULE_4__.appConfig),
-        _fuse_lib_mock_api__WEBPACK_IMPORTED_MODULE_2__.FuseMockApiModule.forRoot(app_mock_api__WEBPACK_IMPORTED_MODULE_5__.mockApiServices),
+        _fuse__WEBPACK_IMPORTED_MODULE_1__.FuseModule,
+        _fuse_services_config__WEBPACK_IMPORTED_MODULE_2__.FuseConfigModule.forRoot(app_core_config_app_config__WEBPACK_IMPORTED_MODULE_5__.appConfig),
+        _fuse_lib_mock_api__WEBPACK_IMPORTED_MODULE_3__.FuseMockApiModule.forRoot(app_mock_api__WEBPACK_IMPORTED_MODULE_6__.mockApiServices),
         // Core module of your application
-        app_core_core_module__WEBPACK_IMPORTED_MODULE_3__.CoreModule,
+        app_core_core_module__WEBPACK_IMPORTED_MODULE_4__.CoreModule,
         // Layout module of your application
-        app_layout_layout_module__WEBPACK_IMPORTED_MODULE_6__.LayoutModule,
+        app_layout_layout_module__WEBPACK_IMPORTED_MODULE_7__.LayoutModule,
         // 3rd party modules that require global configuration via forRoot
-        ngx_markdown__WEBPACK_IMPORTED_MODULE_15__.MarkdownModule.forRoot({}),
-        _angular_service_worker__WEBPACK_IMPORTED_MODULE_16__.ServiceWorkerModule.register('ngsw-worker.js', {
-            enabled: !(0,_angular_core__WEBPACK_IMPORTED_MODULE_12__.isDevMode)(),
+        ngx_markdown__WEBPACK_IMPORTED_MODULE_16__.MarkdownModule.forRoot({}),
+        _angular_service_worker__WEBPACK_IMPORTED_MODULE_17__.ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: _environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.production,
             // Register the ServiceWorker as soon as the application is stable
             // or after 30 seconds (whichever comes first).
             registrationStrategy: 'registerWhenStable:30000'
         })] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_12__["ɵɵsetNgModuleScope"](AppModule, { declarations: [app_app_component__WEBPACK_IMPORTED_MODULE_7__.AppComponent], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_13__.BrowserModule,
-        _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_14__.BrowserAnimationsModule, _angular_router__WEBPACK_IMPORTED_MODULE_11__.RouterModule, 
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵsetNgModuleScope"](AppModule, { declarations: [app_app_component__WEBPACK_IMPORTED_MODULE_8__.AppComponent], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_14__.BrowserModule,
+        _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_15__.BrowserAnimationsModule, _angular_router__WEBPACK_IMPORTED_MODULE_12__.RouterModule, 
         // Fuse, FuseConfig & FuseMockAPI
-        _fuse__WEBPACK_IMPORTED_MODULE_0__.FuseModule, _fuse_services_config_config_module__WEBPACK_IMPORTED_MODULE_9__.FuseConfigModule, _fuse_lib_mock_api_mock_api_module__WEBPACK_IMPORTED_MODULE_10__.FuseMockApiModule, 
+        _fuse__WEBPACK_IMPORTED_MODULE_1__.FuseModule, _fuse_services_config_config_module__WEBPACK_IMPORTED_MODULE_10__.FuseConfigModule, _fuse_lib_mock_api_mock_api_module__WEBPACK_IMPORTED_MODULE_11__.FuseMockApiModule, 
         // Core module of your application
-        app_core_core_module__WEBPACK_IMPORTED_MODULE_3__.CoreModule,
+        app_core_core_module__WEBPACK_IMPORTED_MODULE_4__.CoreModule,
         // Layout module of your application
-        app_layout_layout_module__WEBPACK_IMPORTED_MODULE_6__.LayoutModule, ngx_markdown__WEBPACK_IMPORTED_MODULE_15__.MarkdownModule, _angular_service_worker__WEBPACK_IMPORTED_MODULE_16__.ServiceWorkerModule] }); })();
+        app_layout_layout_module__WEBPACK_IMPORTED_MODULE_7__.LayoutModule, ngx_markdown__WEBPACK_IMPORTED_MODULE_16__.MarkdownModule, _angular_service_worker__WEBPACK_IMPORTED_MODULE_17__.ServiceWorkerModule] }); })();
 
 
 /***/ }),
@@ -7530,8 +7638,8 @@ const appRoutes = [
         },
         children: [
             // { path: 'example', loadChildren: () => import('app/modules/admin/example/example.module').then(m => m.ExampleModule) },
-            { path: 'voters', loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-src_app_shared_services_swal_service_ts"), __webpack_require__.e("src_app_modules_admin_voters_voters_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! app/modules/admin/voters/voters.module */ 71314)).then(m => m.VotersModule) },
-            { path: 'users', loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-src_app_shared_services_swal_service_ts"), __webpack_require__.e("src_app_modules_admin_user_sub-user_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! app/modules/admin/user/sub-user.module */ 97629)).then(m => m.SubUserModule) },
+            { path: 'voters', loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("common"), __webpack_require__.e("src_app_modules_admin_voters_voters_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! app/modules/admin/voters/voters.module */ 71314)).then(m => m.VotersModule) },
+            { path: 'users', loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("common"), __webpack_require__.e("src_app_modules_admin_user_sub-user_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! app/modules/admin/user/sub-user.module */ 97629)).then(m => m.SubUserModule) },
         ]
     }
 ];
