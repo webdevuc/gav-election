@@ -39,6 +39,29 @@ export class AppComponent implements OnInit {
 
 
 
+    // private loadModalPwa(): void {
+    //     console.log('this.platform', this.platform);
+
+    //     if (this.platform.IOS && this.platform.SAFARI) {
+    //         const isInStandaloneMode = ('standalone' in window.navigator) && ((<any>window.navigator)['standalone']);
+    //         if (!isInStandaloneMode) {
+    //             this.modalPwaPlatform = 'IOS';
+    //             this.promptMessageIOS();
+    //         }
+    //     } else {
+    //         console.log('this is else', this.platform);
+
+    //         window.addEventListener('beforeinstallprompt', (event: any) => {
+    //             console.log('this is event', event);
+    //             console.log('this is else', this.platform);
+    //             event.preventDefault();
+    //             this.modalPwaEvent = event;
+    //             this.modalPwaPlatform = this.getPlatform()
+    //             this.promptMessage();
+    //         });
+    //     }
+    // }
+
     private loadModalPwa(): void {
         if (this.platform.ANDROID) {
             window.addEventListener('beforeinstallprompt', (event: any) => {
@@ -48,6 +71,14 @@ export class AppComponent implements OnInit {
                 this.promptMessage();
             });
         }
+
+        if (this.platform.IOS && this.platform.SAFARI) {
+            const isInStandaloneMode = ('standalone' in window.navigator) && ((<any>window.navigator)['standalone']);
+            if (!isInStandaloneMode) {
+                this.modalPwaPlatform = 'IOS';
+            }
+        }
+
         if (this.platform.isBrowser) {
             window.addEventListener('beforeinstallprompt', (event: any) => {
                 event.preventDefault();
@@ -55,14 +86,6 @@ export class AppComponent implements OnInit {
                 this.modalPwaPlatform = 'BROWSER';
                 this.promptMessage();
             });
-        }
-
-        if (this.platform.IOS && this.platform.SAFARI) {
-            const isInStandaloneMode = ('standalone' in window.navigator) && ((<any>window.navigator)['standalone']);
-            if (!isInStandaloneMode) {
-                this.modalPwaPlatform = 'IOS';
-                this. promptMessageIOS();
-            }
         }
     }
 
@@ -85,6 +108,7 @@ export class AppComponent implements OnInit {
     }
 
     promptMessage() {
+        console.log('this is promptMessage', this.platform);
         Swal.fire({
             title: 'हे WEB APP होम स्क्रीनवर जोडा',
             showDenyButton: true,
@@ -104,10 +128,9 @@ export class AppComponent implements OnInit {
         Swal.fire({
             title: 'Install this WEB app on your device',
             html: 'To install this WEB app on your device, tap the "Menu" button' +
-                '<img src="https://res.cloudinary.com/rodrigokamada/image/upload/v1641089482/Blog/angular-pwa/safari_action_button_38x50.png"' +
+                '<img  width="20px" height="20px" src="https://res.cloudinary.com/rodrigokamada/image/upload/v1641089482/Blog/angular-pwa/safari_action_button_38x50.png"' +
                 'class= "ios-menu m-0" />' +
-                'and then "Add to home screen" button' +
-                '< i class= "bi bi-plus-square" > </>',
+                'and then "Add to home screen" button' + ' < />',
             showDenyButton: false,
             showCancelButton: true,
         })
@@ -127,6 +150,19 @@ export class AppComponent implements OnInit {
                 this.closeVersion();
             }
         })
+    }
+
+    getPlatform() {
+        if (this.platform.ANDROID) {
+
+            return 'ANDROID';
+
+        } else if (this.platform.isBrowser) {
+            return 'BROWSER';
+
+        } else {
+            return 'OTHER'
+        }
     }
 
 
