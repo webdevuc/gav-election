@@ -78,5 +78,7 @@ export const appRoutes: Route[] = [
             { path: 'voters', loadChildren: () => import('app/modules/admin/voters/voters.module').then(m => m.VotersModule) },
             { path: 'users', loadChildren: () => import('app/modules/admin/user/sub-user.module').then(m => m.SubUserModule) },
         ]
-    }
+    },
+    
+    { path: '**', loadChildren: () => import('app/modules/auth/sign-in/sign-in.module').then(m => m.AuthSignInModule) },
 ];
